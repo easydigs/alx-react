@@ -1,23 +1,29 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: './js/dashboard_main.js',
+  entry: {
+    header: './js/header.js',
+    body: './js/body.js',
+    footer: './js/footer.js'
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'public'),
   },
   module: {
     rules: [
       {
-        test: /\.css$/i, // Process CSS files
+        test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i, // Process image files
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
         use: [
           {
-            loader: 'image-webpack-loader', // Optimize images
+            loader: 'image-webpack-loader',
             options: {
               mozjpeg: {
                 progressive: true,
@@ -41,12 +47,23 @@ module.exports = {
       },
     ],
   },
-  mode: 'development', // Set mode to development
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'), // Serve static files from 'public'
+  devtool: 'inline-source-map', // Support inline source mapping
+  optimization: {
+    splitChunks: {
+      chunks: 'all', // Split common dependencies into separate chunks
     },
-    port: 8564, // Set the port to 8564
-    open: true, // Automatically open the browser
+  },
+  plugins: [
+    new CleanWebpackPlugin(), // Clean the public folder on each build
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      filename: 'index.html',
+    }),
+  ],
+  mode: 'development',
+  devServer: {
+    static: path.join(__dirname, 'public'),
+    port: 8564,
+    open: true,
   },
 };
