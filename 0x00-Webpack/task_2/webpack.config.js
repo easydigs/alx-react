@@ -4,31 +4,23 @@ module.exports = {
   entry: './js/dashboard_main.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public')
+    path: path.resolve(__dirname, 'public'),
   },
-  mode: 'production',
   module: {
     rules: [
       {
-        test: /\.css$/i,  // Handle CSS files
-        use: ['style-loader', 'css-loader'],  // Process and inject CSS
+        test: /\.css$/i, // Process CSS files
+        use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpg|gif)$/i,  // Handle image files
+        test: /\.(png|svg|jpg|jpeg|gif)$/i, // Process image files
+        type: 'asset/resource',
         use: [
           {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'images/',  // Save images to /public/images/
-            },
-          },
-          {
-            loader: 'image-webpack-loader',  // Optimize images
+            loader: 'image-webpack-loader', // Optimize images
             options: {
               mozjpeg: {
                 progressive: true,
-                quality: 65,
               },
               optipng: {
                 enabled: true,
@@ -40,7 +32,6 @@ module.exports = {
               gifsicle: {
                 interlaced: false,
               },
-              // WebP provides better compression and can be enabled as well
               webp: {
                 quality: 75,
               },
@@ -50,7 +41,5 @@ module.exports = {
       },
     ],
   },
-  performance: {
-    maxAssetSize: 1000000,  // Set a higher asset size limit (1MB) to avoid warnings
-  },
+  mode: 'production',
 };
