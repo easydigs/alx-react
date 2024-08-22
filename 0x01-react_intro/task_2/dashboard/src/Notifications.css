@@ -1,9 +1,13 @@
 .Notifications {
-    border: 1px solid #ccc;
-    padding-top: 10px;
-    padding-right: 15px;
-    padding-bottom: 20px; 
-    padding-left: 50px;
-    border-radius: 5px;    
-    background-color: #f9f9f9; 
+  font-family: 'Times New Roman', Times, serif, Arial, sans-serif;
+    border: 2px dashed var(--hred);
+    padding: 10px, 6px;
+  }
+
+  li[data-priority="default"] {
+    color: blue;
+  }
+  
+  li[data-priority="urgent"] {
+    color: red;
   }
