@@ -16,7 +16,7 @@ export default function Notifications() {
 			border: 'none',
 			fontSize: '15px',
 			position: 'absolute',
-			right: '30px',
+			right: '8px',
 			top: '8px',
 			cursor: 'pointer',
 		}}
