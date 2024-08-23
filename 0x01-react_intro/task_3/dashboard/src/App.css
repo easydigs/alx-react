@@ -55,7 +55,7 @@ form {
   margin-bottom: 10px;
   height: 40px;
   flex-wrap: wrap;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 div label {
