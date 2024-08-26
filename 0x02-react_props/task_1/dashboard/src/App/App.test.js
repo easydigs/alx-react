@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
-import Notifications from './Notifications';
-import Header from './Header';
-import Login from './Login';
-import Footer from './Footer';
+import Notifications from '../Notifications/Notifications';
+import Header from '../Header/Header';
+import Login from '../Login/Login';
+import Footer from '../Footer/Footer';
 
 const wrapper = shallow(<App />);
 
