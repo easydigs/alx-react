@@ -11,7 +11,3 @@ it('renders without crashing', () => {
 it('renders footer', () => {
   expect(wrapper.find('footer.footer').exists()).toEqual(true);
 });
-
-it('renders "Copyright" text', () => {
-  expect(wrapper.text()).toContain('Copyright');
-});

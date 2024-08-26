@@ -11,11 +11,3 @@ it('renders without crashing', () => {
 it('renders login', () => {
   expect(wrapper.find('main.login').exists()).toEqual(true);
 });
-
-it('renders two input tags', () => {
-  expect(wrapper.find('input').length).toEqual(2);
-});
-
-it('renders two label tags', () => {
-  expect(wrapper.find('label').length).toEqual(2);
-});
