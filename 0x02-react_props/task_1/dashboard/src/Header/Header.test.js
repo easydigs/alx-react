@@ -11,3 +11,11 @@ it('renders without crashing', () => {
 it('renders header', () => {
   expect(wrapper.find('header.header').exists()).toEqual(true);
 });
+
+it('renders an img tag', () => {
+  expect(wrapper.find('img').exists()).toEqual(true);
+});
+
+it('renders an h1 tag', () => {
+  expect(wrapper.find('h1').exists()).toEqual(true);
+});

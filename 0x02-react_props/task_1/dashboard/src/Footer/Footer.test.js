@@ -7,6 +7,11 @@ const wrapper = shallow(<Footer />);
 it('renders without crashing', () => {
   shallow(<Footer />);
 });
+
 it('renders footer', () => {
   expect(wrapper.find('footer.footer').exists()).toEqual(true);
+});
+
+it('renders "Copyright" text', () => {
+  expect(wrapper.text()).toContain('Copyright');
 });
