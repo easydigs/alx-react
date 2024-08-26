@@ -12,7 +12,9 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    static: path.resolve(__dirname, 'dist'),
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
     compress: true,
     port: 3000,
     open: true,
@@ -23,6 +25,16 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/i,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
+      },
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
@@ -39,13 +51,6 @@ module.exports = {
             },
           },
         ],
-      },
-      {
-        test: /\.jsx?$/i,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
       },
     ],
   },
