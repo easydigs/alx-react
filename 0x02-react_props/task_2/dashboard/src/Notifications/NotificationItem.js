@@ -4,11 +4,15 @@ import PropTypes from 'prop-types';
 function NotificationItem({ type, html, value }) {
   let li;
 
-  value
-    ? (li = <li data-notification-type={type}>{value}</li>)
-    : (li = (
-        <li data-notification-type={type} dangerouslySetInnerHTML={html}></li>
-      ));
+  if (value) {
+    li = <li data-notification-type={type}>{value}</li>;
+  } else if (html) {
+    li = (
+      <li data-notification-type={type} dangerouslySetInnerHTML={html}></li>
+    );
+  } else {
+    li = <li data-notification-type={type}></li>;
+  }
 
   return li;
 }
@@ -16,7 +20,7 @@ function NotificationItem({ type, html, value }) {
 NotificationItem.defaultProps = {
   type: 'default',
   value: '',
-  html: {},
+  html: null,
 };
 
 NotificationItem.propTypes = {

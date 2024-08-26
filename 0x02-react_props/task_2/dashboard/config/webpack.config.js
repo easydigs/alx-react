@@ -6,13 +6,17 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve('./dist'),
+    path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
     hot: true,
-    contentBase: path.resolve('./dist'),
     compress: true,
     port: 3000,
+    open: true,
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    historyApiFallback: true, // Enables support for SPA routing
   },
   module: {
     rules: [
