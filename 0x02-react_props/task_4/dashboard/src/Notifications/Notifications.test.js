@@ -2,9 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Notifications from './Notifications';
 
-describe('<Notification />', () => {
+describe('<Notifications />', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<Notifications />);
     shallow(<Notifications />);
   });
 
@@ -13,7 +12,7 @@ describe('<Notification />', () => {
     const nItem = wrapper.find('NotificationItem');
     expect(nItem).toBeDefined();
     expect(nItem.first().html()).toEqual(
-      '<li data-notification-type="default">New course available</li>'
+      '<li data-priority="default">New course available</li>'  // Check for data-priority
     );
   });
 
