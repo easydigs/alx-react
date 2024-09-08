@@ -1,21 +1,25 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-import WithLogging from './WithLogging';
-import Login from '../Login/Login';
+import { shallow, mount } from "enzyme";
+import React from "react";
+import WithLogging from "./WithLogging";
+import Login from "../Login/Login";
+import { StyleSheetTestUtils } from "aphrodite";
 
-describe('<WithLogging />', () => {
-  it('render', () => {
-    console.log = jest.fn();
-    const HOC = WithLogging(() => <p />);
-    const wrapper = shallow(<HOC />);
-    expect(wrapper.exists());
+describe("<WithLogging />", () => {
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
   });
-  /*
-  it('on mount and on unmount with pure html', () => {
+  afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
+  it("calls console.log on mount and on unmount with Component when the wrapped element is pure html", () => {
     console.log = jest.fn();
+
     const HOC = WithLogging(() => <p />);
+
     const wrapper = mount(<HOC />);
     expect(wrapper.exists()).toEqual(true);
+
     expect(console.log).toHaveBeenNthCalledWith(
       1,
       `Component Component is mounted`
@@ -25,21 +29,17 @@ describe('<WithLogging />', () => {
       2,
       `Component Component is going to unmount`
     );
+
     jest.restoreAllMocks();
   });
-*/
-  it('render login', () => {
+  it("calls console.log mount and on unmount with the name of the component when the wrapped element is the Login component. ", () => {
     console.log = jest.fn();
+
     const HOC = WithLogging(Login);
-    const wrapper = shallow(<HOC />);
-    expect(wrapper.exists());
-  });
-  /*
-  it('mount and on unmount with login. ', () => {
-    console.log = jest.fn();
-    const HOC = WithLogging(Login);
+
     const wrapper = mount(<HOC />);
     expect(wrapper.exists()).toEqual(true);
+
     expect(console.log).toHaveBeenNthCalledWith(
       1,
       `Component Login is mounted`
@@ -49,7 +49,7 @@ describe('<WithLogging />', () => {
       2,
       `Component Login is going to unmount`
     );
+
     jest.restoreAllMocks();
   });
-*/
 });
