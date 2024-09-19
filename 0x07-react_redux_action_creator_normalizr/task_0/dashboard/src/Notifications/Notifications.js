@@ -1,88 +1,97 @@
-import React, { PureComponent, Fragment } from 'react';
-import close_icon from '../assets/close-icon.png';
-import NotificationItem from './NotificationItem';
-import PropTypes from 'prop-types';
-import NotificationItemShape from './NotificationItemShape';
-import { StyleSheet, css } from 'aphrodite';
+import React from "react";
+import PropTypes from "prop-types";
+import { css, StyleSheet } from "aphrodite";
+import NotificationItem from "./NotificationItem";
+import closeButton from "../assets/close-icon.png";
+import NotificationItemShape from "./NotificationItemShape";
 
-class Notifications extends PureComponent {
+const styles = StyleSheet.create({
+  notifications: {
+    border: "3px dashed #e14852",
+    padding: "0.25em",
+    float: "right",
+    margin: "20px 30px 0 0",
+  },
+  notificationsSmall: {
+    "@media (max-width: 900px)": {
+      float: "none",
+      fontSize: "20px",
+    },
+  },
+  ulSmall: {
+    "@media (max-width: 900px)": {
+      padding: "0",
+      listStyle: "none",
+    },
+  },
+  menuItem: {
+    textAlign: "right",
+    marginRight: "30px",
+  },
+  menuItemSmall: {
+    "@media (max-width: 900px)": {
+      fontSize: "20px",
+    },
+  },
+  notificationsButtonImage: {
+    width: "10px",
+    marginTop: "5px",
+  },
+});
+
+class Notifications extends React.PureComponent {
   constructor(props) {
     super(props);
-    //this.markAsRead = this.markAsRead.bind(this);
   }
-  /*
-  markAsRead(id) {
-    console.log(`Notification ${id} has been marked as read`);
-  }
-  shouldComponentUpdate(nextProps) {
-    return (
-      nextProps.listNotifications.length >
-        this.props.listNotifications.length ||
-      nextProps.displayDrawer !== this.props.displayDrawer
-    );
-  }
-*/
+
   render() {
     const {
-      displayDrawer,
-      listNotifications,
       handleDisplayDrawer,
       handleHideDrawer,
+      displayDrawer,
+      listNotifications,
       markNotificationAsRead,
     } = this.props;
-    const show = css(displayDrawer ? styles.showOff : styles.showOn);
     return (
-      <Fragment>
-        <div
-          className={css(styles.menuItem)}
-          onClick={handleDisplayDrawer}
-          id='menuItem'
-        >
-          <p className={show}>Your notifications</p>
+      <>
+        <div className="menuItem">
+          <div
+            className={css(styles.menuItem, styles.menuItemSmall)}
+            onClick={handleDisplayDrawer}
+          >
+            Your notifications
+          </div>
         </div>
         {displayDrawer && (
-          <div className={css(styles.notifications)}>
-            <p>Here is the list of notifications</p>
-            <ul>
-              {listNotifications.length === 0 && (
-                <NotificationItem value='No new notification for now' />
-              )}
-              {listNotifications.map((notification) => (
-                <NotificationItem
-                  key={notification.id}
-                  type={notification.type}
-                  value={notification.value}
-                  html={notification.html}
-                  markAsRead={markNotificationAsRead}
-                />
-              ))}
-            </ul>
-            <button
-              type='button'
-              aria-label='Close'
-              onClick={handleHideDrawer}
-              id='close'
-              style={{
-                display: 'inline-block',
-                position: 'absolute',
-                top: '56px',
-                right: '16px',
-                background: 0,
-                border: 0,
-                outline: 'none',
-                cursor: 'pointer',
-                zIndex: 1,
-              }}
+          <div className="Notifications">
+            <div
+              className={css(styles.notifications, styles.notificationsSmall)}
             >
-              <img
-                src={close_icon}
-                alt=''
-                style={{ width: '8px', height: '8px' }}
-              />
-            </button>
+              <button
+                style={{
+                  right: 45,
+                  border: "none",
+                  position: "absolute",
+                  background: "transparent",
+                }}
+                aria-label="close"
+                onClick={handleHideDrawer}
+              >
+                <img
+                  src={closeButton}
+                  className={css(styles.notificationsButtonImage)}
+                  alt="close button icon"
+                />
+              </button>
+              <p>Here is the list of notifications</p>
+              <ul className={css(styles.ulSmall)}>
+              {this.props.listNotifications.length === 0 ? (<NotificationItem id={0} value="No new notification for now" type='no-new' markAsRead={this.markAsRead} />) : <></>}
+              {this.props.listNotifications.map((item) => (<NotificationItem id={item.id} key={item.id} type={item.type} value={item.value} html={item.html} markAsRead={this.props.markNotificationAsRead}/>))}
+              </ul>
+            </div>
           </div>
         )}
-      </Fragment>
+      </>
     );
   }
 }
@@ -102,85 +111,5 @@ Notifications.propTypes = {
   handleHideDrawer: PropTypes.func,
   markNotificationAsRead: PropTypes.func,
 };
-
-const screenSize = {
-  small: '@media screen and (max-width: 900px)',
-};
-
-const opacityKf = {
-  from: {
-    opacity: 0.5,
-  },
-
-  to: {
-    opacity: 1,
-  },
-};
-
-const translateYkf = {
-  '0%': {
-    transform: 'translateY(0)',
-  },
-
-  '50%': {
-    transform: 'translateY(-5px)',
-  },
-
-  '75%': {
-    transform: 'translateY(5px)',
-  },
-
-  '100%': {
-    transform: 'translateY(0)',
-  },
-};
-
-const borderKf = {
-  '0%': {
-    border: `3px dashed cyan`,
-  },
-
-  '100%': {
-    border: `3px dashed #e0344a`,
-  },
-};
-
-const styles = StyleSheet.create({
-  notifications: {
-    fontSize: '20px',
-    border: 'thin dotted #e0344a',
-    padding: '4px 16px',
-    float: 'right',
-    animationName: [borderKf],
-    animationDuration: '0.8s',
-    animationIterationCount: 1,
-    animationFillMode: 'forwards',
-    [screenSize.small]: {
-      width: '90%',
-      border: 'none',
-      backgroundColor: 'white',
-    },
-  },
-  menuItem: {
-    textAlign: 'right',
-    marginRight: '16px',
-    ':hover': {
-      cursor: 'pointer',
-      animationName: [opacityKf, translateYkf],
-      animationDuration: '1s, 0.5s',
-      animationIterationCount: 3,
-    },
-  },
-  showOff: {
-    marginRight: '8px',
-    [screenSize.small]: {
-      display: 'none',
-    },
-  },
-
-  showOn: {
-    marginRight: '8px',
-  },
-});
 
 export default Notifications;

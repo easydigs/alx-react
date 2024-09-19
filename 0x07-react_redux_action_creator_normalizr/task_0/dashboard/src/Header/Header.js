@@ -1,71 +1,58 @@
-import React, { Component } from 'react';
-import logo from '../assets/holberton-logo.jpg';
-import { StyleSheet, css } from 'aphrodite';
-import { AppContext } from '../App/AppContext';
+import React, { cloneElement } from "react";
+import { css, StyleSheet } from 'aphrodite';
+import holberton_logo from "../assets/holberton_logo.jpg";
+import { AppContext } from '../App/AppContext'
 
-class Header extends Component {
+
+const styles = StyleSheet.create({
+  header: {
+    display: "flex",
+    color: '#e14852',
+    alignItems: "center"
+  },
+  headerLogo: {
+    width: '200px',
+    height: '200px'
+  },
+  span: {
+    fontStyle: 'italic',
+    textDecoration: 'underline black'
+  },
+  welcomeParagraph: {
+    marginLeft: '15px',
+    color: 'black',
+    fontSize: '1.3rem'
+  },
+  welcomeParagraphSmall: {
+    '@media (max-width: 900px)': {
+      fontSize: '1.1rem',
+      marginLeft: '10px'
+    }
+  }
+})
+
+export default class Header extends React.Component {
+  
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
-    const { user, logOut } = this.context;
+
+    const { user, logOut } = this.context
 
     return (
       <header className={css(styles.header)}>
-        <img className={css(styles.logo)} src={logo} alt='logo' />
-        <h1 className={css(styles.title)}>School dashboard</h1>
+        <img src={holberton_logo} className={css(styles.headerLogo)} alt="Holberton Logo" />
+        <h1>School dashboard</h1>
         {user.isLoggedIn && (
-          <p id='logoutSection' className={css(styles.logoutSection)}>
-            Welcome <b>{`${user.email} `}</b>
-            <span onClick={logOut} className={css(styles.logoutSectionSpan)}>
-              (logout)
-            </span>
-          </p>
+          <p id='logoutSection' className={css(styles.welcomeParagraph, styles.welcomeParagraphSmall)}>Welcome <b>{`${user.email} `}</b><span onClick={logOut} className={css(styles.span)}>(logout)</span></p>
         )}
+
       </header>
+
     );
   }
 }
 
-const screenSize = {
-  small: '@media screen and (max-width: 900px)',
-};
-
-const styles = StyleSheet.create({
-  header: {
-    display: 'flex',
-    color: '#e0344a',
-    alignItems: 'center',
-    borderBottom: 'thick solid #e0344a',
-    width: '100%',
-    position: 'fixed',
-  },
-  logo: {
-    width: '144px',
-    [screenSize.small]: {
-      width: '240px',
-    },
-  },
-  title: {
-    margin: 0,
-    [screenSize.small]: {
-      fontSize: '40px',
-    },
-  },
-  logoutSection: {
-    color: 'black',
-    position: 'absolute',
-    right: 0,
-    paddingRight: '20px',
-    alignSelf: 'flex-end',
-  },
-  logoutSectionSpan: {
-    fontStyle: 'italic',
-    cursor: 'pointer',
-  },
-});
-
 Header.contextType = AppContext;
-
-export default Header;
