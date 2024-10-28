@@ -1,4 +1,4 @@
-const path = require("path"); // Add this line at the top
+const path = require("path");
 
 module.exports = {
   mode: "production",
