@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("path"); // Add this line at the top
 
 module.exports = {
   mode: "production",
@@ -21,18 +21,12 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(gif|png|jp?g|svg)$/i,
-        use: [
-          "file-loader",
-          {
-            loader: "image-webpack-loader",
-            options: {
-              bypassOnDebug: true,
-              disable: true,
-            },
-          },
-        ],
-      },
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name][ext]',
+        },
+      }
     ],
   },
 };
