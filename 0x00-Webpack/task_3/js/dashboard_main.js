@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import _ from 'lodash';
+import '../css/main.css';
 
 let count = 0;  // Initialize count outside of the function
 
