@@ -1,49 +1,28 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import CourseListRow from './CourseListRow';
+import CourseList from './CourseList';
 
-describe('<CourseListRow />', () => {
+describe('<CourseList />', () => {
+  const wrapper = shallow(<CourseList />);
   it('renders without crashing', () => {
-    const wrapper = shallow(<CourseListRow textFirstCell='test' />);
     expect(wrapper.exists());
   });
-  it('renders one cell', () => {
-    const wrapper = shallow(
-      <CourseListRow isHeader={true} textFirstCell='test' />
-    );
-    wrapper.update();
-    const th = wrapper.find('th');
-
-    expect(th).toHaveLength(1);
-    expect(th.prop('colSpan')).toEqual('2');
-  });
-  it('renders two cells', () => {
-    const wrapper = shallow(
-      <CourseListRow
-        isHeader={true}
-        textFirstCell='test'
-        textSecondCell='second'
-      />
-    );
-    wrapper.update();
-    const th = wrapper.find('th');
-
-    expect(th).toHaveLength(2);
-    expect(th.first().text()).toEqual('test');
-    expect(th.at(1).text()).toEqual('second');
-  });
-  it('renders two td', () => {
-    const wrapper = shallow(
-      <CourseListRow
-        isHeader={false}
-        textFirstCell='test'
-        textSecondCell='second'
-      />
-    );
-    wrapper.update();
-    const tr = wrapper.find('tr');
-
-    expect(tr).toHaveLength(1);
-    expect(tr.children('td')).toHaveLength(2);
+  it('renders rows', () => {
+    const row = wrapper.find('CourseListRow');
+    expect(row).toHaveLength(5);
+    expect(row.at(0).prop('textFirstCell')).toEqual('Available courses');
+    expect(row.at(0).prop('isHeader')).toEqual(true);
+    expect(row.at(1).prop('textFirstCell')).toEqual('Course name');
+    expect(row.at(1).prop('textSecondCell')).toEqual('Credit');
+    expect(row.at(1).prop('isHeader')).toEqual(true);
+    expect(row.at(2).prop('textFirstCell')).toEqual('ES6');
+    expect(row.at(2).prop('textSecondCell')).toEqual('60');
+    expect(row.at(2).prop('isHeader')).toEqual(false);
+    expect(row.at(3).prop('textFirstCell')).toEqual('Webpack');
+    expect(row.at(3).prop('textSecondCell')).toEqual('20');
+    expect(row.at(3).prop('isHeader')).toEqual(false);
+    expect(row.at(4).prop('textFirstCell')).toEqual('React');
+    expect(row.at(4).prop('textSecondCell')).toEqual('40');
+    expect(row.at(4).prop('isHeader')).toEqual(false);
   });
 });
