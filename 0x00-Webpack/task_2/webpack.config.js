@@ -3,43 +3,30 @@ const path = require('path');
 module.exports = {
   entry: './js/dashboard_main.js',
   output: {
-    filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
+    filename: 'bundle.js',
   },
+  mode: 'production',
   module: {
     rules: [
       {
-        test: /\.css$/i, // Process CSS files
-        use: ['style-loader', 'css-loader'],
+        test: /\.js$/,
+        exclude: /node_modules/,
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i, // Process image files
-        type: 'asset/resource',
-        use: [
-          {
-            loader: 'image-webpack-loader', // Optimize images
-            options: {
-              mozjpeg: {
-                progressive: true,
-              },
-              optipng: {
-                enabled: true,
-              },
-              pngquant: {
-                quality: [0.65, 0.90],
-                speed: 4,
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-              webp: {
-                quality: 75,
-              },
-            },
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'], // rule to handle CSS files
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/, // rule for images
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[path][name].[ext]', // Use the original path and name
+            outputPath: 'images/', // Output folder for images
           },
-        ],
+        },
       },
     ],
   },
-  mode: 'production',
 };
