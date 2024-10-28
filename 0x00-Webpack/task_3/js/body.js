@@ -13,6 +13,6 @@ $(document).ready(function() {
   $('body').append('<button id="click-btn">Click here to get started</button>');
   $('body').append('<p id="count"></p>');
 
-  const debouncedUpdate = _.debounce(updateCounter, 300);
+  const debouncedUpdate = _.debounce(updateCounter, 500);
   $('#click-btn').on('click', debouncedUpdate);
 });
